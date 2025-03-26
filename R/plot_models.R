@@ -7,7 +7,7 @@ library(ggplot2)
 
 # Read in models and anovas objects from RDS files
 models <- readRDS("models_subsample.rds")
-anovas <- readRDS("anovass_subsample.rds")
+anovas <- readRDS("anovas_subsample.rds")
 
 # Plotting results
 selected_predictors_R_LSD =  names(models$Reasons_LSD$coefficients)[grep(".SQ", names(models$Reasons_LSD$coefficients))]
@@ -146,15 +146,10 @@ p_People_MSH <- p_People_MSH + theme_sjplot2(base_size = 58) + scale_y_continuou
 # Define the names of the plots to be saved
 plot_names <- c("p_Reasons_LSD", "p_Reasons_MSH", "p_Places_LSD", "p_Places_MSH", "p_People_LSD", "p_People_MSH")
 
-# Create a directory named 'Plots' if it does not already exist
-if (!dir.exists("Plots/subsample")) {
-  dir.create("Plots/LSD_PM_subsample")
-}
-
 # Loop to save the plots
 for (name in plot_names) {
   plot_object <- get(name) # Retrieve the plot object by the given name
-  filename <- paste0("Plots/LSD_PM_subsample/", name, ".png") # Construct the file name for the plot
+  filename <- paste0("Plots/", name, ".png") # Construct the file name for the plot
   
   # Set the width and height based on the plot name
   if (grepl("Reasons", name)) {
